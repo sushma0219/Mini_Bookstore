@@ -1,0 +1,290 @@
+﻿@model IEnumerable<_671Books.Models.Book>
+@{
+    ViewBag.Title = "Cart";
+    decimal CartPrice = 0;
+}
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script type="text/javascript">
+    {
+        jQuery(document).ready(function ($) {
+            //alert('Hi');
+            //$(".payment").hide();
+
+            $(document).on('change', ".ddl", function () {
+                //alert(this.value);
+                //alert(this.id);
+                var a = this.id;
+                var value = this.value;
+                //alert(a);
+                //alert(value);
+                var txtid = "txt" + a;
+                //alert(txtid);
+                $("#txt"+a).val(value);
+                //alert(a)
+                //var price = $(a).val()
+                //alert(price)
+                //var value = this.value * price
+                ////alert(value)
+                //$(a).val(value)
+                var values = $('input[Name="txt"]').map(function () {
+                    return this.value;
+                }).get()
+                console.log(values)
+                var i;
+                var v = 0;
+                for (i = 0; i < values.length; i++) {
+                    //alert(values[i]);
+                    v = Number(v) + Number(values[i]);
+                    //alert(v);
+                }
+                $("#lbl").val(v);
+            });
+
+            //$("#placeOrder").click(function () {
+            //    //$(".payment").show();
+            //    var flag = true;
+            //    var NameLength = $("#Name").val().length();
+            //    var ShippingLength = $("#ShippingAddress").val().length();
+            //    var BillingLength = $("#BillingAddress").val().length();
+            //    var cardLength = $("#Card").val().length();
+            //    var cvvLength = $("#CVV").val().length();
+            //    var card = $("#Card").val();
+            //    var cvv = $("#CVV").val();
+            //    if (NameLength == 0) {
+            //        flag = false;
+            //    }
+            //    if (ShippingLength == 0) {
+            //        flag = false;
+            //    }
+            //    if (BillingLength == 0) {
+            //        flag = false;
+            //    }
+            //    if (cardLength == 0) {
+            //        flag = false;
+            //    }
+            //    if (cvvLength == 0) {
+            //        flag = false;
+            //    }
+            //    if (isNaN(card)) {
+            //        flag = false;
+            //    }
+            //    //if (!isFinite(card)) {
+            //    //    flag = false;
+            //    //}
+            //    if (isNaN(cvv)) {
+            //        flag = false;
+            //    }
+            //    alert(flag);
+            //    if (!flag) {
+            //        return false;
+            //    }
+
+            //});
+           
+        });
+        
+   }
+</script>
+@*<style type="text/css">
+    .payment {
+        display:none;
+        border: 1px;
+    }
+</style>*@
+<h2>Cart</h2>
+@ViewBag.SummaryDiv
+@if (Model.Count() > 0)
+{
+    using (Html.BeginForm("Cart", "Home", FormMethod.Post, new { name = "frm", id = "frm" }))
+    { 
+    <table>
+    <tr style="font-family:Arial; font-size:large;font-weight:bold">
+        <td>
+            Title
+        </td>
+        <td>
+            Author
+        </td>
+        <td>
+            Genre
+        </td>
+        <td>
+            Edition
+        </td>
+        <td>
+            Publisher
+        </td>
+        <td>
+            Year
+        </td>
+        <td>
+            Quantity
+        </td>
+        <td>
+            Price
+        </td>
+        <td>
+            Remove
+        </td>
+        
+    </tr>
+    
+    @foreach (var m in Model)
+    {
+        CartPrice = CartPrice + m.Price;
+       
+        <tr>
+            <td>
+                @m.Name 
+            </td>
+            <td>
+                @m.Author
+            </td>
+            <td>
+                @m.Genre
+            </td>
+            <td>
+                @m.Edition
+            </td>
+            <td>
+                @m.Publisher
+            </td>
+            <td>
+                @m.Year
+            </td>
+            
+            <td>
+                <select id=@m.ID class="ddl" name=@m.ID>
+                    @for (var i = 1; i < m.QuantityInStore + 1; i++)
+                    {
+                        var p = m.Price * i;
+                        <option value=@p>@i</option>
+
+                    }
+                </select>
+            </td>
+
+            <td>
+                @*@m.Price*@
+                @*<input type="text" id="txt"@m.ID value=@m.Price readonly="readonly" width="50px"/>*@
+                @Html.TextBox("txt" + m.ID, m.Price, new { Name = "txt", style="width:50px"})
+            </td>
+            <td>
+                @Html.ActionLink("Remove", "RemoveCart", new { ID = m.ID })
+            </td>
+        </tr>
+        <tr>
+            
+            @*<td>
+                @Html.DropDownList(
+            "item" + m.ID,
+            Enumerable
+                .Range(1, m.QuantityInStore)
+                .Select(x => new SelectListItem
+                {
+                    Value = x.ToString(),
+                    Text = x.ToString()
+                }), new { @class = "ddl"}
+        )
+            </td>*@
+           
+        </tr>
+        
+    }
+        <tr>
+            <td colspan="7" align="right" style="font-weight:bold; font-size:large">
+                Total Price:
+            </td>
+            <td colspan="2" align="left">
+                <input type="text" id="lbl" value=@CartPrice readonly="readonly" style="width: 50px" />
+            </td>
+        </tr>
+</table>
+<br />
+<br />
+    <div>
+        <h5>Payment Information</h5>
+        <table border="1">
+            <tr>
+                <td>
+                    Name:
+                </td>
+                <td>
+                    @Html.TextBox("Name", null, new { @placeholder = "Enter Name", style = "width:250px" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Shipping Address:
+                </td>
+                <td>
+                    @Html.TextBox("ShippingAddress", null, new { @placeholder = "Enter Shipping Address", style = "width:250px" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Billing Address:
+                </td>
+                <td>
+                    @Html.TextBox("BillingAddress", null, new { @placeholder = "Enter Billing Address", style = "width:250px" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Credit Card Number:
+                </td>
+                <td>
+                    @Html.TextBox("Card", null, new { @placeholder = "Enter Credit Card Number", style = "width:250px", maxlength = 16 })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Expiry Date:
+                </td>
+                <td>
+                    <table>
+                        <tr>
+                            <td>
+                                Month:
+                                <select id="MM" class="ddl">
+                                    @for (var i = 1; i < 13; i++)
+                                    {
+                                        <option value=@i>@i</option>
+                                    }
+                                </select>
+                            </td>
+                            <td>
+                                Year:
+                                <select id="YY" class="ddl">
+                                    @for (var i = 2015; i < 2050; i++)
+                                    {
+                                        <option value=@i>@i</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    CVV:
+                </td>
+                <td>
+                    @Html.TextBox("CVV", null, new { @placeholder = "CVV", style = "width:50px", maxlength = 3 })
+                </td>
+            </tr>
+        </table>
+    </div>
+<br />
+    <input type="submit" value="Place your Order" id="placeOrder" name="placeOrder"/>
+
+    }
+
+}
+else
+{
+    <p>You do not have any book's in your Cart.</p>
+}

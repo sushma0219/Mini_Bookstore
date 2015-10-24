@@ -1,0 +1,100 @@
+﻿@model IEnumerable<_671Books.Models.Orders>
+@{
+    var grid = new WebGrid(source: Model, canPage: true, rowsPerPage: 10);
+    grid.Pager(WebGridPagerModes.All);
+}
+@{
+    ViewBag.Title = "Order History";
+}
+
+<style type="text/css">
+    .webgrid-table {
+        font-family: verdana,arial,sans-serif;
+        font-size: 11px;
+        width: 861px;
+        display: table;
+        border: solid 1px #98BF21;
+        border-collapse: separate;
+        background-color: White;
+    }
+
+        .webgrid-table td, th {
+            border: solid 1px #98BF21;
+            padding: 3px 7px 2px;
+        }
+
+    .webgrid-header {
+        background-color: #A7C942;
+        color: #FFFFFF;
+        padding-bottom: 4px;
+        padding-top: 5px;
+        text-align: left;
+    }
+
+    .webgrid-footer {
+        text-align: center;
+    }
+
+    .webgrid-row-style {
+        padding: 3px 7px 2px;
+    }
+
+    .webgrid-alternating-row {
+        background-color: #d3d3d3;
+        padding: 3px 7px 2px;
+    }
+
+    .author {
+        width: 200px;
+    }
+
+    .year {
+        width: 150px;
+    }
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#select").height(31);
+        $("#Genres").width(150);
+
+    });
+</script>
+
+@if (Model.Count() > 0)
+{
+    using (Html.BeginForm("OrderHistory", "Home", FormMethod.Post))
+{
+
+    <div>
+        @grid.GetHtml(
+            tableStyle: "webgrid-table",
+            headerStyle: "webgrid-header",
+            footerStyle: "webgrid-footer",
+            alternatingRowStyle: "webgrid-alternating-row",
+            rowStyle: "webgrid-row-style",
+    columns: grid.Columns(
+        //grid.Column(columnName: "ID", header: "ID"),
+    grid.Column(columnName:"OrderID", header:"Order ID"),
+     //grid.Column(format: (item) => new HtmlString(Html.ActionLink((string)item.Name, "BookDetails", new { ID = item.ID, Source = "WishList" }).ToString()), header: "Name"),
+     grid.Column(columnName: "OrderDate", header: "Order Date"),
+       grid.Column(columnName: "name", header: "Title"),
+      grid.Column(columnName: "author", header: "Author"),
+    grid.Column(columnName: "edition", header: "Edition"),
+    grid.Column(columnName: "publisher", header: "Publisher"),    
+    grid.Column(columnName: "genre", header: "Genre"),
+    grid.Column(columnName: "year", header: "Year"),
+      grid.Column(columnName: "price", header: "Price"),
+        grid.Column(columnName: "Quantity", header: "Quantity"),
+         grid.Column(columnName: "Status", header: "Status")
+        
+
+        )
+    )
+    </div>
+}
+}
+else
+{ 
+    <p>You haven't ordered any book's.</p>
+}

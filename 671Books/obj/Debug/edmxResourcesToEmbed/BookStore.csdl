@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BookStoreModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="BookStoreEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="people" EntityType="BookStoreModel.person" />
+    <EntitySet Name="Orders" EntityType="BookStoreModel.Order" />
+    <AssociationSet Name="FK_Orders_Person" Association="BookStoreModel.FK_Orders_Person">
+      <End Role="person" EntitySet="people" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <EntitySet Name="books" EntityType="BookStoreModel.book" />
+    <EntitySet Name="Carts" EntityType="BookStoreModel.Cart" />
+    <AssociationSet Name="FK_Cart_books" Association="BookStoreModel.FK_Cart_books">
+      <End Role="book" EntitySet="books" />
+      <End Role="Cart" EntitySet="Carts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Orders_Books" Association="BookStoreModel.FK_Orders_Orders_Books">
+      <End Role="book" EntitySet="books" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cart_person" Association="BookStoreModel.FK_Cart_person">
+      <End Role="person" EntitySet="people" />
+      <End Role="Cart" EntitySet="Carts" />
+    </AssociationSet>
+    <FunctionImport Name="GetOrderHistory" ReturnType="Collection(BookStoreModel.GetOrderHistory_Result)" />
+  </EntityContainer>
+  <EntityType Name="person">
+    <Key>
+      <PropertyRef Name="cid" />
+    </Key>
+    <Property Name="cid" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="phone" Type="Int64" Nullable="false" />
+    <Property Name="address" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="admin_status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Orders" Relationship="BookStoreModel.FK_Orders_Person" FromRole="person" ToRole="Order" />
+    <NavigationProperty Name="Carts" Relationship="BookStoreModel.FK_Cart_person" FromRole="person" ToRole="Cart" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="orderid" />
+      <PropertyRef Name="bid" />
+      <PropertyRef Name="cid" />
+    </Key>
+    <Property Name="orderid" Type="Int32" Nullable="false" />
+    <Property Name="orderdate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="totalprice" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="shippingaddress" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="qtysold" Type="Int32" Nullable="false" />
+    <Property Name="bid" Type="Int32" Nullable="false" />
+    <Property Name="cid" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="person" Relationship="BookStoreModel.FK_Orders_Person" FromRole="Order" ToRole="person" />
+    <NavigationProperty Name="book" Relationship="BookStoreModel.FK_Orders_Orders_Books" FromRole="Order" ToRole="book" />
+  </EntityType>
+  <Association Name="FK_Orders_Person">
+    <End Type="BookStoreModel.person" Role="person" Multiplicity="1" />
+    <End Type="BookStoreModel.Order" Role="Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="person">
+        <PropertyRef Name="cid" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="cid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="book">
+    <Key>
+      <PropertyRef Name="bid" />
+    </Key>
+    <Property Name="bid" Type="Int32" Nullable="false" />
+    <Property Name="title" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="edition" Type="Int32" Nullable="false" />
+    <Property Name="year" Type="Int32" Nullable="false" />
+    <Property Name="price" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="author" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="publisher" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="genre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="qtyinstore" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Carts" Relationship="BookStoreModel.FK_Cart_books" FromRole="book" ToRole="Cart" />
+    <NavigationProperty Name="Orders" Relationship="BookStoreModel.FK_Orders_Orders_Books" FromRole="book" ToRole="Order" />
+  </EntityType>
+  <EntityType Name="Cart">
+    <Key>
+      <PropertyRef Name="cid" />
+      <PropertyRef Name="bid" />
+    </Key>
+    <Property Name="cid" Type="Int32" Nullable="false" />
+    <Property Name="bid" Type="Int32" Nullable="false" />
+    <Property Name="price" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="title" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="edition" Type="Int32" Nullable="false" />
+    <Property Name="year" Type="Int32" Nullable="false" />
+    <Property Name="author" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="publisher" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="genre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="inWishList" Type="Boolean" Nullable="false" />
+    <Property Name="orderStatus" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="qtyinstore" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="book" Relationship="BookStoreModel.FK_Cart_books" FromRole="Cart" ToRole="book" />
+    <NavigationProperty Name="person" Relationship="BookStoreModel.FK_Cart_person" FromRole="Cart" ToRole="person" />
+  </EntityType>
+  <Association Name="FK_Cart_books">
+    <End Type="BookStoreModel.book" Role="book" Multiplicity="1" />
+    <End Type="BookStoreModel.Cart" Role="Cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="book">
+        <PropertyRef Name="bid" />
+      </Principal>
+      <Dependent Role="Cart">
+        <PropertyRef Name="bid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Orders_Books">
+    <End Type="BookStoreModel.book" Role="book" Multiplicity="1" />
+    <End Type="BookStoreModel.Order" Role="Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="book">
+        <PropertyRef Name="bid" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="bid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cart_person">
+    <End Type="BookStoreModel.person" Role="person" Multiplicity="1" />
+    <End Type="BookStoreModel.Cart" Role="Cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="person">
+        <PropertyRef Name="cid" />
+      </Principal>
+      <Dependent Role="Cart">
+        <PropertyRef Name="cid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="GetOrderHistory_Result">
+    <Property Type="Int32" Name="cid" Nullable="false" />
+    <Property Type="Int32" Name="orderid" Nullable="false" />
+    <Property Type="DateTime" Name="orderdate" Nullable="false" />
+    <Property Type="Decimal" Name="totalprice" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="String" Name="shippingaddress" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="Status" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="qtysold" Nullable="false" />
+    <Property Type="String" Name="author" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="title" Nullable="false" MaxLength="100" />
+    <Property Type="Decimal" Name="price" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="String" Name="publisher" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="genre" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="year" Nullable="false" />
+    <Property Type="Int32" Name="edition" Nullable="false" />
+  </ComplexType>
+</Schema>

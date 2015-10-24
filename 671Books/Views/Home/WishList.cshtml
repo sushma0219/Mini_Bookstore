@@ -1,0 +1,93 @@
+﻿@model IEnumerable<_671Books.Models.Book>
+@{
+    var grid = new WebGrid(source: Model, canPage: true, rowsPerPage: 10);
+    grid.Pager(WebGridPagerModes.All);
+}
+@{
+    ViewBag.Title = "Wish List";
+}
+
+<style type="text/css">
+    .webgrid-table {
+        font-family: verdana,arial,sans-serif;
+        font-size: 11px;
+        width: 861px;
+        display: table;
+        border: solid 1px #98BF21;
+        border-collapse: separate;
+        background-color: White;
+    }
+
+        .webgrid-table td, th {
+            border: solid 1px #98BF21;
+            padding: 3px 7px 2px;
+        }
+
+    .webgrid-header {
+        background-color: #A7C942;
+        color: #FFFFFF;
+        padding-bottom: 4px;
+        padding-top: 5px;
+        text-align: left;
+    }
+
+    .webgrid-footer {
+        text-align: center;
+    }
+
+    .webgrid-row-style {
+        padding: 3px 7px 2px;
+    }
+
+    .webgrid-alternating-row {
+        background-color: #d3d3d3;
+        padding: 3px 7px 2px;
+    }
+
+    .author {
+        width: 200px;
+    }
+
+    .year {
+        width: 150px;
+    }
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#select").height(31);
+        $("#Genres").width(150);
+
+    });
+</script>
+@if (Model.Count() > 0)
+{
+    using (Html.BeginForm("WishList", "Home", FormMethod.Post))
+{
+
+    <div>
+        @grid.GetHtml(
+            tableStyle: "webgrid-table",
+            headerStyle: "webgrid-header",
+            footerStyle: "webgrid-footer",
+            alternatingRowStyle: "webgrid-alternating-row",
+            rowStyle: "webgrid-row-style",
+    columns: grid.Columns(
+        //grid.Column(columnName: "ID", header: "ID"),
+        // grid.Column(columnName:"Name", header:"Name"),
+     grid.Column(format: (item) => new HtmlString(Html.ActionLink((string)item.Name, "BookDetails", new { ID = item.ID, Source = "WishList" }).ToString()), header: "Name"),
+    grid.Column(columnName: "Author", header: "Author"),
+    grid.Column(columnName: "Edition", header: "Edition"),
+    grid.Column(columnName: "Publisher", header: "Publisher"),
+    grid.Column(columnName: "Genre", header: "Genre"),
+    grid.Column(columnName: "Year", header: "Year")
+
+        )
+    )
+    </div>
+}
+}
+else
+{ 
+    <p>You do not have any book's in your wish list.</p>
+}

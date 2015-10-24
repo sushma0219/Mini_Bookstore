@@ -1,0 +1,89 @@
+﻿@{
+    ViewBag.Title = "Checkout";
+}
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+
+@using (Html.BeginForm("Confirmation", "Home", FormMethod.Post, new { name = "frm", id = "frm"}))
+{ 
+    <div class="errorMessage"> </div>
+    <br />
+    <table>
+        <tr>
+            <td>
+                Name:
+            </td>
+            <td>
+                @Html.TextBox("Name", null, new { @placeholder = "Enter Name", style = "width:250px" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Shipping Address:
+            </td>
+            <td>
+                @Html.TextBox("ShippingAddress", null, new { @placeholder = "Enter Shipping Address", style = "width:250px" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Billing Address:
+            </td>
+            <td>
+                @Html.TextBox("BillingAddress", null, new { @placeholder = "Enter Billing Address", style = "width:250px" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Credit Card Number:
+            </td>
+            <td>
+                @Html.TextBox("Card", null, new { @placeholder = "Enter Credit Card Number", style = "width:250px", maxlength = 16 })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Expiry Date:
+            </td>
+            <td>
+                <table>
+                    <tr>
+                        <td>
+                            Month:
+                            <select id="MM" class="ddl">
+                                @for (var i = 1; i < 32; i++)
+                                {
+                                    <option value=@i>@i</option>
+                                }
+                            </select>
+                        </td>
+                        <td>
+                            Year:
+                            <select id="YY" class="ddl">
+                                @for (var i = 2015; i < 2050; i++)
+                                {
+                                    <option value=@i>@i</option>
+                                }
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+               
+            </td>
+           
+        </tr>
+        <tr>
+            <td>
+                CVV:
+            </td>
+            <td>
+                @Html.TextBox("CVV", null, new { @placeholder = "CVV", style = "width:50px", maxlength = 3 })
+            </td>
+        </tr>
+    </table>
+    
+    <br />
+    
+  
+    <input type="submit" value="Continue" id="btnSubmit"/>
+}

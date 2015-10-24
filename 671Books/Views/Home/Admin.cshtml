@@ -1,0 +1,130 @@
+﻿@model IEnumerable<_671Books.Models.Book>
+@{
+    var grid = new WebGrid(source: Model, canPage: true, rowsPerPage: 10);
+    grid.Pager(WebGridPagerModes.All);
+}
+@{
+    ViewBag.Title = "Admin Home Page";
+}
+
+<style type="text/css">
+    .webgrid-table {
+        font-family: verdana,arial,sans-serif;
+        font-size: 11px;
+        width: 861px;
+        display: table;
+        border: solid 1px #98BF21;
+        border-collapse: separate;
+        background-color: White;
+    }
+
+        .webgrid-table td, th {
+            border: solid 1px #98BF21;
+            padding: 3px 7px 2px;
+        }
+
+    .webgrid-header {
+        background-color: #A7C942;
+        color: #FFFFFF;
+        padding-bottom: 4px;
+        padding-top: 5px;
+        text-align: left;
+    }
+
+    .webgrid-footer {
+        text-align: center;
+    }
+
+    .webgrid-row-style {
+        padding: 3px 7px 2px;
+    }
+
+    .webgrid-alternating-row {
+        background-color: #d3d3d3;
+        padding: 3px 7px 2px;
+    }
+
+    .author {
+        width: 200px;
+    }
+
+    .year {
+        width: 150px;
+    }
+</style>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#select").height(31);
+        $("#Genres").width(150);
+    });
+</script>
+
+
+@using (Html.BeginForm("Admin", "Home", FormMethod.Post))
+{
+    <table>
+        <tr>
+            <td>
+                @Html.Label("Author")
+            </td>
+            <td>
+                @*<input type="text" class="form-control" id="txtAuthor" placeholder="Enter Author's Name" style="width:200px">*@
+                @Html.TextBox("Author", null, new { @class = "author", @placeholder = "Enter Author's Name" })
+            </td>
+            <td>
+                @Html.Label("Genre")
+            </td>
+            <td>
+                @*<input type="text" class="form-control" id="txtGenre" placeholder="Enter Genre" style="width:150px">*@
+                @*@Html.DropDownList("Genres", "Select a Genre")*@
+                @Html.DropDownList("Genres", new List<SelectListItem>
+                {
+                    new SelectListItem { Text = "Classics", Value = "Classics"},
+                    new SelectListItem { Text = "FOCS", Value = "FOCS"},
+                    new SelectListItem { Text = "Poetry", Value = "Poetry"},
+                    new SelectListItem { Text = "Science Fiction", Value = "Science Fiction"},
+                    new SelectListItem { Text = "Technology", Value = "technology"},
+                }, "Select a Genre")
+
+            </td>
+            <td>
+                @Html.Label("Year")
+            </td>
+            <td>
+                @*<input type="text" class="form-control" id="txtYear" placeholder="Enter Year(YYYY)" style="width:150px">*@
+                @Html.TextBox("Year", null, new { @class = "year", @placeholder = "Enter Year(YYYY)" })
+            </td>
+            <td>
+                <input type="submit" class="btn btn-default btn-small" value="Search" id="btnSubmit" />
+            </td>
+        </tr>
+
+    </table>
+    <div>
+        @grid.GetHtml(
+            tableStyle: "webgrid-table",
+            headerStyle: "webgrid-header",
+            footerStyle: "webgrid-footer",
+            alternatingRowStyle: "webgrid-alternating-row",
+            rowStyle: "webgrid-row-style",
+    columns: grid.Columns(
+        //grid.Column(columnName: "ID", header: "ID"),
+        // grid.Column(columnName:"Name", header:"Name"),
+    grid.Column(format: (item) => new HtmlString(Html.ActionLink((string)item.Name, "BookDetailsAdmin", new { ID = item.ID}).ToString()), header: "Name"),
+    grid.Column(columnName: "Author", header: "Author"),
+    grid.Column(columnName: "Edition", header: "Edition"),
+    grid.Column(columnName: "Publisher", header: "Publisher"),
+    grid.Column(columnName: "Genre", header: "Genre"),
+    grid.Column(columnName: "Year", header: "Year")
+
+        )
+    )
+    </div>
+}
+<br />
+To update any book, click on the book name.
+<br />
+To insert new book, @Html.ActionLink("Click here", "NewBook", "Home")
+<br />
+For total Sales, @Html.ActionLink("Click here", "TotalSales", "Home")

@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "Register";
+}
+@*<script type="text/javascript">
+    $(document).ready(function () {
+        var address = $("#Address").val();
+        if (address.length == 0) {
+            $("#SummryDiv").append("Please enter address")
+        }
+    });
+</script>*@
+<section id="loginForm">
+    <hgroup class="title">
+
+        <h2>Create a new account.</h2>
+    </hgroup>
+
+    @using (Html.BeginForm("Register", "User", FormMethod.Post))
+    {
+
+        <fieldset>
+            <legend>Registration Form</legend>
+            <ol>
+                <li>
+                    @Html.Label("User Name")
+                    @Html.TextBox("UserName", null, new { @placeholder = "Enter User Name" })
+                </li>
+                <li>
+                    @Html.Label("Password")
+                    @Html.Password("Password", null, new { @placeholder = "Enter Password" })
+                </li>
+                <li>
+                    @Html.Label("ConfirmPassword")
+                    @Html.Password("ConfirmPassword", null, new { @placeholder = "Re enter Password" })
+                </li>
+                <li>
+                    @Html.Label("Name")
+                    @Html.TextBox("Name", null, new { @placeholder = "Enter Name" })
+                </li>
+                <li>
+                    @Html.Label("Phone")
+                    @Html.TextBox("Phone", null, new { @placeholder = "Enter Phone number" })
+                </li>
+                <li>
+                    @Html.Label("Address")
+                    @Html.TextBox("Address", null, new { @placeholder = "Enter Address" })
+                </li>
+            </ol>
+            
+            <input type="submit" value="Register" />
+        </fieldset>
+    }
+</section>
+<section class="social" id="socialLoginForm">
+   <div id="SummaryDiv">
+       @Html.Raw((string)ViewBag.SummaryDiv)    
+        @Html.Raw((string)ViewBag.ExistingUser)
+   </div>
+</section>
+@*@section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }*@

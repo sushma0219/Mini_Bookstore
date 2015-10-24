@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "Register";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+    <h2>Create a new account.</h2>
+</hgroup>
+
+@using (Html.BeginForm("Regster","Account",FormMethod.Post)) {
+    
+    <fieldset>
+        <legend>Registration Form</legend>
+        <ol>
+            <li>
+                @Html.Label("User Name")
+                @Html.TextBox("UserName", null, new { @placeholder = "Enter User Name" })
+            </li>
+            <li>
+                @Html.Label("Password")
+                @Html.Password("Password", null, new { @placeholder = "Enter Password" })
+            </li>
+            <li>
+                @Html.Label("ConfirmPassword")
+                @Html.Password("ConfirmPassword", null, new { @placeholder = "Re enter Password" })
+            </li>
+            <li>
+                @Html.Label("Name")
+                @Html.TextBox("Name", null, new { @placeholder = "Enter Name" })
+            </li>
+            <li>
+                @Html.Label("Phone")
+                @Html.TextBox("Phone", null, new { @placeholder = "Enter Phone number" })
+            </li>
+            <li>
+                @Html.Label("Address")
+                @Html.TextBox("Address", null, new { @placeholder = "Enter Address" })
+            </li>
+        </ol>
+        <input type="submit" value="Register" />
+    </fieldset>
+}
+
+@*@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}*@

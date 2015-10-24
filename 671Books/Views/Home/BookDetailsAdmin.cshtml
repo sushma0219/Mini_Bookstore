@@ -1,0 +1,111 @@
+﻿@model _671Books.Models.Book
+
+
+<style type="text/css">
+    .details {
+        font-family: Arial;
+        font-weight: bold;
+        font-size: 15px;
+    }
+
+    .price {
+        font-family: Arial;
+        font-weight: bold;
+        font-size: 15px;
+        color: red;
+    }
+</style>
+
+@using (Html.BeginForm("BookDetailsAdmin", "Home", FormMethod.Post))
+{
+    @ViewBag.SummaryDiv
+    <table>
+        
+        <tr>
+            
+            <td>
+                <input type="hidden" id="txtID" name="txtID" value="@Html.AttributeEncode(Model.ID)" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Title
+            </td>
+            <td>
+                @Html.TextBox("TitleBook", @Model.Name, new { Name = "TitleBook", placeholder = "Title", style = "width:150px" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Edition
+            </td>
+            <td>
+                @Html.TextBox("Edition", @Model.Edition, new { Name = "Edition", placeholder = "Edition", style = "width:150px" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Year
+            </td>
+            <td>
+                @Html.TextBox("Year", @Model.Year, new { Name = "Year", placeholder = "Year", style = "width:150px" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Price
+            </td>
+            <td>
+                @Html.TextBox("Price", @Model.Price, new { Name = "Price", placeholder = "Price", style = "width:150px" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Author
+            </td>
+            <td>
+                @Html.TextBox("Author", @Model.Author, new { Name = "Author", placeholder = "Author", style = "width:150px" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Publisher
+            </td>
+            <td>
+                @Html.TextBox("Publisher", @Model.Publisher, new { Name = "Publisher", placeholder = "Publisher", style = "width:150px" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Genre
+            </td>
+            <td>
+                @Html.TextBox("Genre", @Model.Genre, new { Name = "Genre", placeholder = "Genre", style = "width:150px" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Quantity
+            </td>
+            <td>
+                @Html.TextBox("QtyInStore", @Model.QuantityInStore, new { Name = "QtyInStore", placeholder = "QtyInStore", style = "width:150px" })
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <table>
+                    <tr>
+                       
+                        <td>
+                            <input type="submit" value="Update Book" id="updatebook" name="updatebook" class="btn btn-info" />
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+}
+
+
+

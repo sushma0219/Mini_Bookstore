@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+@model IEnumerable<_671Books.Models.Orders>
+@{
+    var count = 0;
+    decimal totalPrice = 0;
+}
+
+<html>
+<body>
+    @using (Html.BeginForm("TotalSales", "Home", FormMethod.Post))
+{
+    <input type="date" id="fromdate" name="fromdate" value="2015-01-01">
+        <input type="date" id="todate" name="todate" value="2015-04-30">
+        <input type="submit" id="btnSubmit" name="btnSubmit">
+    if (ViewBag.Orders == "orders")
+   { 
+   
+     <table>
+        <tr style="font-weight:bold; font-size:large">
+            <td>
+                Order ID
+            </td>
+            <td>
+                Order Date
+            </td>
+            <td>
+                Title
+            </td>
+            <td>
+                Author
+            </td>
+            <td>
+                Publisher
+            </td>
+            <td>
+                Genre
+            </td>
+            <td>
+                Year
+            </td>
+            <td>
+                Edition
+            </td>
+            <td>
+                Total Price
+            </td>
+        </tr>
+        @foreach (var m in Model)
+        {
+            count = count + 1;
+            totalPrice = totalPrice + @m.TotalPrice;
+            <tr>
+                <td>
+                    @m.OrderID
+                </td>
+                <td>
+                    @m.OrderDate
+                </td>
+                <td>
+                    @m.name
+                </td>
+                <td>
+                    @m.author
+                </td>
+                <td>
+                    @m.publisher
+                </td>
+                <td>
+                    @m.genre
+                </td>
+                <td>
+                    @m.year
+                </td>
+                <td>
+                    @m.edition
+                </td>
+                <td>
+                    @m.TotalPrice
+                </td>
+            </tr>
+
+        }
+    </table>
+        
+    <table>
+        <tr>
+            <td style="font-weight:bold; font-size:large">
+                Total Sales:
+            </td>
+            <td>
+                @count
+            </td>
+        </tr>
+        <tr>
+            <td style="font-weight:bold; font-size:large">
+                Total Price:
+            </td>
+            <td>
+                @totalPrice
+            </td>
+        </tr>
+</table>   
+   } 
+    }
+    
+  
+    
+
+</body>
+</html>

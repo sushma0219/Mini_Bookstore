@@ -1,0 +1,31 @@
+﻿<section class="social" id="loginForm">
+    <h2>Login</h2>
+    @using (Html.BeginForm("Login", "User", FormMethod.Post))
+    {
+
+        <fieldset>
+            <legend>Login</legend>
+            <ol>
+                <li>
+                    @Html.Label("User Name")
+                    @Html.TextBox("UserName", null, new { @placeholder = "Enter User Name" })
+                </li>
+                <li>
+                    @Html.Label("Password")
+                    @Html.Password("Password", null, new { @placeholder = "Enter Password" })
+                </li>
+                <li>
+                    @Html.ActionLink("Click here to Register", "Register", "User")
+                </li>
+            </ol>
+            
+          
+            <input type="submit" value="Login" />
+        </fieldset>
+    }
+</section>
+<section class="social" id="socialLoginForm">
+    <div id="SummaryDiv">
+        @Html.Raw((string)ViewBag.InvalidUser)
+    </div>
+</section>

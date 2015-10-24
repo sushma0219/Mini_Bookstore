@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+@using _671Books.Utils;
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>@ViewBag.Title - 671BOOKS</title>
+        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width" />
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+        <style type="text/css">
+            #footer {
+                position: fixed;
+                bottom: 0;
+                text-align:center
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    @*<p class="site-title">@Html.ActionLink("<img src="~/Images/Logo.png" />", "Index", "Home")</p>*@
+                    @Html.ActionLink(
+                    " ",
+                    "Index",
+                    "Home",
+                    null,
+                    new
+                    {   
+                        style = "background: url('" + Url.Content("~/Images/Logo2.png") + "') no-repeat left; display:block; height:100px; width:264px;"
+                    }
+                )
+                </div>
+                <div class="float-right">
+                    @ViewBag.Loggedin
+                    @*<section id="login">
+                        @Html.Partial("_LoginPartial")
+                    </section>*@
+                    <section id="login">
+                        @if (MenuSecurity.IsUser(HttpContext.Current.Request.Cookies["UserSettings"])) { 
+                            <p>Welcome, @HttpContext.Current.Request.Cookies["UserSettings"]["UserName"] @Html.ActionLink("LogOff", "LogOff", "User")</p>
+                        }
+                         
+                    </section>
+                    <nav>
+                        <ul id="menu">
+                            @if (MenuSecurity.IsAdmin(HttpContext.Current.Request.Cookies["UserSettings"])) { <li>@Html.ActionLink("Admin", "Admin", "Home")</li> }
+                            @if (MenuSecurity.IsUser(HttpContext.Current.Request.Cookies["UserSettings"]))
+                            { 
+                            <li>@Html.ActionLink("My Account", "MyAccount", "Home")</li>
+                            <li>@Html.ActionLink("WishList", "WishList", "Home")</li>
+                            <li>@Html.ActionLink("Cart", "Cart", "Home")</li>
+                            <li>@Html.ActionLink("Order History", "OrderHistory", "Home")</li>
+                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                            }
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <div id="body">
+            @RenderSection("featured", required: false)
+            <section class="content-wrapper main-content clear-fix">
+                @RenderBody()
+            </section>
+        </div>
+        <footer>
+            @*<div class="content-wrapper">
+                <div class="float-left">
+                    <p>&copy; @DateTime.Now.Year - 671BOOKS</p>
+                </div>
+            </div>*@
+            <div id="footer">
+                <p>&copy; @DateTime.Now.Year - 671BOOKS</p>
+            </div>
+        </footer>
+
+        @Scripts.Render("~/bundles/jquery")
+        @RenderSection("scripts", required: false)
+    </body>
+</html>

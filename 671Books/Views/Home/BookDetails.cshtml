@@ -1,0 +1,118 @@
+﻿@model _671Books.Models.Book
+
+<style type="text/css">
+    .details {
+        font-family:Arial;
+        font-weight: bold;
+        font-size :15px;
+          }
+
+    .price {
+        font-family: Arial;
+        font-weight: bold;
+        font-size: 15px;
+        color: red;
+    }
+
+</style>
+
+@using (Html.BeginForm("BookDetails","Home",FormMethod.Post))
+{
+     <table>
+    <tr>
+        <td>
+           @* <img src="~/Images/BookCovers/@Model.BookCover" />*@
+        </td>
+
+        <td>
+            <table class="details">
+                <tr>
+                    <td>
+                       <input type="hidden" id="txtID" name="txtID" value="@Html.AttributeEncode(Model.ID)" />
+                        <input type="hidden" id="txtQtyInStore" name="txtQtyInStore" value="@Html.AttributeEncode(Model.QuantityInStore)"  /> 
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.Label("Book:")
+                    </td>
+                    <td>
+                        @Model.Name
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.Label("Edition:")
+                    </td>
+                    <td>
+                        @Model.Edition
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.Label("Author:")
+                    </td>
+                    <td>
+                        @Model.Author
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.Label("Publisher:")
+                    </td>
+                    <td>
+                        @Model.Publisher
+                    </td>
+                </tr>
+                <tr class="price">
+                    <td>
+                        @Html.Label("Price:")
+                    </td>
+                    <td>
+                        $@Model.Price
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.Label("Genre:")
+                    </td>
+                    <td>
+                        @Model.Genre
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.Label("Year:")
+                    </td>
+                    <td>
+                        @Model.Year
+                    </td>
+                </tr>
+            </table>
+
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table>
+                <tr>
+                    <td>
+                        <input type="submit" value="Add to Wish List" id="wishlist" name="wishlist" style=@ViewBag.DisplayButton class="btn btn-info"/>
+                    </td>
+                    <td>
+                        <input type="submit" value="Remove from Wish List" id="removewishlist" name="removewishlist" style=@ViewBag.DisplayRemoveButton class="btn btn-info" />
+                    </td>
+                    <td>
+                        <input type="submit" value="Add to Cart" id="addtocart" name="addtocart" class="btn btn-info" />
+                    </td>
+                    <td>
+                        <input type="submit" value="Continue Shopping" id="continueshopping" name="continueshopping" class="btn btn-info" />
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+}
+
+

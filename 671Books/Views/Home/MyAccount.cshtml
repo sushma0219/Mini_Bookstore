@@ -1,0 +1,48 @@
+﻿@model IEnumerable<_671Books.Models.Person>
+
+@foreach (var m in Model)
+{
+    <table>
+        <tr>
+            <td>
+                Name
+            </td>
+            <td>
+                @m.Name
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Address
+            </td>
+            <td>
+                @m.Address
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Phone
+            </td>
+            <td>
+                @m.Phone
+            </td>
+        </tr>
+        <tr>
+            <td>
+                UserName
+            </td>
+            <td>
+                @m.UserName
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Password
+            </td>
+            <td>
+                @m.Password
+            </td>
+        </tr>
+    </table> 
+    
+}

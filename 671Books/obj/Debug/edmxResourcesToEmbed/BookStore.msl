@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BookStoreModelStoreContainer" CdmEntityContainer="BookStoreEntities">
+    <EntitySetMapping Name="people">
+      <EntityTypeMapping TypeName="BookStoreModel.person">
+        <MappingFragment StoreEntitySet="person">
+          <ScalarProperty Name="admin_status" ColumnName="admin_status" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="cid" ColumnName="cid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="BookStoreModel.Order">
+        <MappingFragment StoreEntitySet="Orders">
+          <ScalarProperty Name="cid" ColumnName="cid" />
+          <ScalarProperty Name="bid" ColumnName="bid" />
+          <ScalarProperty Name="qtysold" ColumnName="qtysold" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="shippingaddress" ColumnName="shippingaddress" />
+          <ScalarProperty Name="totalprice" ColumnName="totalprice" />
+          <ScalarProperty Name="orderdate" ColumnName="orderdate" />
+          <ScalarProperty Name="orderid" ColumnName="orderid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="books">
+      <EntityTypeMapping TypeName="BookStoreModel.book">
+        <MappingFragment StoreEntitySet="books">
+          <ScalarProperty Name="qtyinstore" ColumnName="qtyinstore" />
+          <ScalarProperty Name="genre" ColumnName="genre" />
+          <ScalarProperty Name="publisher" ColumnName="publisher" />
+          <ScalarProperty Name="author" ColumnName="author" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="year" ColumnName="year" />
+          <ScalarProperty Name="edition" ColumnName="edition" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="bid" ColumnName="bid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Carts">
+      <EntityTypeMapping TypeName="BookStoreModel.Cart">
+        <MappingFragment StoreEntitySet="Cart">
+          <ScalarProperty Name="qtyinstore" ColumnName="qtyinstore" />
+          <ScalarProperty Name="orderStatus" ColumnName="orderStatus" />
+          <ScalarProperty Name="inWishList" ColumnName="inWishList" />
+          <ScalarProperty Name="genre" ColumnName="genre" />
+          <ScalarProperty Name="publisher" ColumnName="publisher" />
+          <ScalarProperty Name="author" ColumnName="author" />
+          <ScalarProperty Name="year" ColumnName="year" />
+          <ScalarProperty Name="edition" ColumnName="edition" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="bid" ColumnName="bid" />
+          <ScalarProperty Name="cid" ColumnName="cid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="GetOrderHistory" FunctionName="BookStoreModel.Store.GetOrderHistory">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BookStoreModel.GetOrderHistory_Result">
+          <ScalarProperty Name="cid" ColumnName="cid" />
+          <ScalarProperty Name="orderid" ColumnName="orderid" />
+          <ScalarProperty Name="orderdate" ColumnName="orderdate" />
+          <ScalarProperty Name="totalprice" ColumnName="totalprice" />
+          <ScalarProperty Name="shippingaddress" ColumnName="shippingaddress" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="qtysold" ColumnName="qtysold" />
+          <ScalarProperty Name="author" ColumnName="author" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="publisher" ColumnName="publisher" />
+          <ScalarProperty Name="genre" ColumnName="genre" />
+          <ScalarProperty Name="year" ColumnName="year" />
+          <ScalarProperty Name="edition" ColumnName="edition" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>
